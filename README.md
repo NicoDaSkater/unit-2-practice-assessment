@@ -12,7 +12,9 @@ function sayItLoud() {
 
 sayItLoud();
 ```
+Prediction: "Hello!!!" is logged to the console
 
+Actual Output: "Hello!!!" was logged to the console
 
 
 2. **Okay... so why does the code below throw an error?**
@@ -25,6 +27,9 @@ function sayItLoud() {
 
 let greeting = "Hello"
 ```
+Prediction: This will result in a `ReferenceError` for referencing a variable that hasn't been defined yet. `let` variable aren't initialized above the line they were declared.
+
+Actual Output: A `ReferenceError` was thrown for the predicted reason.
 
 
 
@@ -36,6 +41,9 @@ function sayItLoud() {
 }
 var greeting = "Hello"
 ```
+Prediction: `"undefined!!!"` will be logged. In this case the `var` varible is hoisted to the top of the global scope and is initialzed with the value of `undefined`.
+
+Actual Output: `"undefined"` was logged to the console.
 
 
 
@@ -54,6 +62,10 @@ console.log(status);
 **tags:** #variableScope
 **key:** "let is block scoped"
 
+Prediction: A `ReferenceError` wil bethrown for trying to reference a variable that hasn't been defined, unlike `var` variables, `let` variables are initialized at all above the line they are declared.
+
+Actual Output: `ReferenceError: status is not defined`
+
 
 
 5. **Why does the following block of code NOT throw an error?**
@@ -70,11 +82,21 @@ console.log(status);
 ```
 **tags:** #variableScope
 **key:** "variables declared with var are not block scoped"
+Prediction: Since `let` variables are block scoped, the status declarations can't be referenced to outside of there respective blocks.
+
+Actual Ouput: `ReferenceError: status is not defined`
 
 
 6. **In JavaScript, we can declare variables with `var`, `let`, and `const`. What are the differences between each? Be sure to comment on how each declaration impacts the _scope_, _reassignment_, and _hoisting_ of variables.**
 
+### `var`
+> `var` is a keyword declaration used to declare variables, this keyword was widely used from 1995 to 2015 and became somewhat outdated when the `let` `const` keywords were added. Variables declared with `var` are mutable; they can be re-assigned a different value. `var` variables are function scoped or globally scoped (depending wether or not it's declared inside a function) and hoisted to the top of it. `var` variables can be referenced within their scope *and* are initialized with the value 'undefined' before the line they were declared on.
 
+### `let`
+> The `let` keyword is used to declared variables that we want to mutate in some way after it's been declared and/or assigned a value, giving us the power to re-assign a `let` variable after it's been declared. `let` variables are block scoped (whatever's inside `{}`) and *behave* as if they arent hoisted. `let` variables do exists in the Lexical Enviroment when the code in being interpredted, so you'll recieve a 'ReferenceError' before references a `let` variable before being *initialized*, although hoisted `let` variables aren't initialized before they are declared even with the value 'undefined'. `let` *and* `const` variables are in a temporal deadzone before the line they are declared
+
+### `const`
+>Like `let`, variables declared with `const` are block scoped and experiences the same hoisting and scope behaviors as `let`. `const` is short for 'constant' meaning this keyword was made for variables that we want to remain constant througout our program, making it immutable.
 
 7. **Where does the following code throw an error? What type of error? Why?**
 ```javascript
@@ -84,7 +106,9 @@ console.log(a);
 ```
 **tags:** #variableDeclaration
 **key:** "the variable `b` is not defined."
+Prediction: The code will throw a `ReferenceError` because `b` hasn't been defined
 
+Acutal Output: `ReferenceError: b is not defined`
 
 
 8. **What is the value of `y` after this code runs? Explain why this is the case.**
@@ -98,7 +122,9 @@ console.log(y);
 ```
 **tags:** #mutability
 **key:** "`y` points to the integer `1`, a primitive data type", "reassigning `x` has no effect on `y`" 
+Prediction: Despite re-assigning `x`, `y` will still hold the value `1`. primitive data values are passed by value and not passed by reference.
 
+Actual Output:`1` is logged when `console.log`ing `y`.
 
 
 9. **What does the following code log? Explain why?**
@@ -110,7 +136,9 @@ console.log(b.goals);
 ```
 **tags:** #mutability
 **key:** "`b` points to the same object referenced by `a`"
+Prediction:`"Cielo"` will be logged to the console, because the variable `b` point to the reference of variable `a` that stores the object
 
+Actual Output: `"Cielo"` is logged to the console
 
 
 10. **Where does the following code throw an error? What type of error? Why?**
@@ -122,7 +150,9 @@ console.log(fellows);
 ```
 **tags**: #variableDeclaration #mutability #primitives
 **key:** "variables declared with `const` cannot be reassigned"
+Prediction: The error will be thrown at line 2, because we are reassigning a `const` variable. A `ReferenceError` will be thrown???
 
+Actual Output: Was right about where and why we get the erro. But the *type* of error was different `TypeError: Assignment to constant variable.`
 
 
 11. **Wait, why doesn't the code below throw an error?! 🧐 What does this demonstrate?**
@@ -134,7 +164,10 @@ console.log(fellows);
 ```
 **tags:** #mutability #objects
 **key:** "`fellows` was not reassigned", "JavaScript objects are mutable"
+Prediction: `['Itzel', 'Carmen', 'Shemar']` will be logged to the console
 
+
+Actual Output: `['Itzel', 'Carmen', 'Shemar']` was logged to the console
 
 
 12. **What does the following code log? Why?**
@@ -149,7 +182,9 @@ console.log(say);
 ```
 **tags**: #functionExecution #functionArguments
 **key:** "function was not invoked"
+Prediction: `[Function: say}` will be logged to the console
 
+Actual Output: `[Function: say}` was logged to the console
 
 
 13. **What does the following code log? What does this say about JavaScript function arguments?**
@@ -162,11 +197,24 @@ shoutOut('Devonte');
 ```
 **tags:** #functionExecution #variableScope
 **key:** "arguments are optional", "extraneous arguments are ignored"
+Prediction:`"The flyest person in the room in Carmen"` will be logged to the console
 
+Actual Output: `"The flyest person in the room in Carmen"` was logged to the console
 
 
 14. **What happens if a function is invoked with fewer arguments than there are parameters? Include a code snippet to illustrate.**
 
+Prediction: Invoking a function with fewer arguments will mostly likely result in a `ReferenceError` because when one sets parameters in the function declaration, they expect arguments. These parameters will be referenced to at any point in the function body. If an inssuficient amount of arguments are given then, again, we'll get a `ReferenceError` for referencing a variable that hasn't been defined
+
+Actual Output: Nevermind, it looks like Javasript literally does not give a fuck about missing arguments 
+```js
+const lala = function(num1,num2){
+    let sum = num1 + num2
+    console.log(sum)
+}
+lala(2)
+```
+For example this function will just log `NaN` to the console, because tried to add get the sum of the number `2` and the value `undefined` which. The result of this isn't a number. Cool I guess.
 **tags:** #functionExecution #functionArguments
 **key:** "missing parameters are set to `undefined`"
 
@@ -180,6 +228,18 @@ sum(1, 2, 10); // 13
 sum(5); // 5
 sum(100, 200, 800, 1, 1, 1); // 1103;
 ```
+Prediction: We can access extra parameters by using the spread operator (`...`).This operator takes in any number of values and spreads them out across a place where we expect a large or an inconsistent amount of values.
+```js
+const paramLogger = function(...Args){
+    console.log(...Args)
+}
+
+paramLogger(1)
+paramLogger(1,2)
+paramLogger(1,2,3)
+```
+
+Actual Output: I was correct, we can use the spread operator to take in any number a values. The code above simply logs to the console all the arguments given when invoking the `paramLogger` function.
 **tags:** #functionExecution
 **key:** the array-like `argument` object, the ES6 rest parameter syntax
 
@@ -196,6 +256,11 @@ function shoutOut() {
 shoutOut();
 console.log(`The best coder in the room is ${bestCoder}`.);
 ```
+Predict: 
+
+Actual Output:
+
+Actual Output:
 **tags:** #variableScope
 **key:** "functions have access to variables defined in their local scope and all surrounding scopes"
 
